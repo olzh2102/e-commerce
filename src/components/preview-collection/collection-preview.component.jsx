@@ -1,7 +1,8 @@
 import React from 'react'
+import CollectionItem from '../collection-item/collection-item.component'
+import Grid from '@material-ui/core/Grid'
 
 import './collection-preview.styles.scss'
-import { DialogTitle } from '@material-ui/core'
 
 const CollectionPreview = ({ title, items }) => (
 	<div className="collection-preview">
@@ -9,17 +10,24 @@ const CollectionPreview = ({ title, items }) => (
 			{title.toUpperCase()}
 		</h1>
 
-		<div className="preview">
+		<Grid
+			className="preview"
+			container
+			spacing={2}
+		>
 			{items
 				.filter(
 					(item, index) => index < 4
 				)
-				.map(item => (
-					<div key={item.id}>
-						{item.name}
-					</div>
+				.map(({ id, ...itemProps }) => (
+					<Grid item xs={6} sm={3}>
+						<CollectionItem
+							key={id}
+							{...itemProps}
+						/>
+					</Grid>
 				))}
-		</div>
+		</Grid>
 	</div>
 )
 
