@@ -4,12 +4,7 @@ import './App.css'
 import Container from '@material-ui/core/Container'
 
 import HomePage from './pages/homepage/homepage.component'
-
-const HatsPage = () => (
-	<div>
-		<h1>Hats Page</h1>
-	</div>
-)
+import ShopPage from './pages/shop/shop.component'
 
 function App() {
 	return (
@@ -21,8 +16,8 @@ function App() {
 					component={HomePage}
 				/>
 				<Route
-					path="/hats"
-					component={HatsPage}
+					path="/shop"
+					component={ShopPage}
 				/>
 			</Switch>
 		</Container>
