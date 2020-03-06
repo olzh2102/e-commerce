@@ -27,7 +27,6 @@ class App extends React.Component {
 				this.setState({
 					currentUser: user
 				})
-				console.log(user)
 			}
 		)
 	}
@@ -39,7 +38,11 @@ class App extends React.Component {
 	render() {
 		return (
 			<>
-				<Header />
+				<Header
+					currentUser={
+						this.state.currentUser
+					}
+				/>
 				<Container>
 					<Switch>
 						<Route
