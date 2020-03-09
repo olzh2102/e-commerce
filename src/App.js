@@ -59,11 +59,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<>
-				<Header
-					currentUser={
-						this.state.currentUser
-					}
-				/>
+				<Header />
 				<Container>
 					<Switch>
 						<Route
