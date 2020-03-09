@@ -1,6 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Switch, Route } from 'react-router-dom'
+import {
+	Switch,
+	Route,
+	Redirect
+} from 'react-router-dom'
 import Container from '@material-ui/core/Container'
 import './App.css'
 
@@ -75,9 +79,15 @@ class App extends React.Component {
 							component={ShopPage}
 						/>
 						<Route
+							exact
 							path="/signin"
-							component={
-								SignInAndSignUpPage
+							render={() =>
+								this.props
+									.currentUser ? (
+									<Redirect to="/" />
+								) : (
+									<SignInAndSignUpPage />
+								)
 							}
 						/>
 					</Switch>
@@ -87,12 +97,16 @@ class App extends React.Component {
 	}
 }
 
+const mapStateToProps = ({ user }) => ({
+	currentUser: user.currentUser
+})
+
 const mapDispatchToProps = dispatch => ({
 	setCurrentUser: user =>
 		dispatch(setCurrentUser(user))
 })
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(App)
