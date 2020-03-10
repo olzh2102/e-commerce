@@ -1,18 +1,8 @@
 import React from 'react'
 import Card from '@material-ui/core/Card'
-import CardActionArea from '@material-ui/core/CardActionArea'
-import Typography from '@material-ui/core/Typography'
-import CardActions from '@material-ui/core/CardActions'
-import { makeStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
+import CustomButton from '../custom-button/custom-button.component'
 
 import './collection-item.styles.scss'
-
-const useStyles = makeStyles(theme => ({
-	name: {
-		fontSize: 16
-	}
-}))
 
 const CollectionItem = ({
 	id,
@@ -20,7 +10,6 @@ const CollectionItem = ({
 	price,
 	imageUrl
 }) => {
-	const classes = useStyles()
 	return (
 		<Card
 			className="collection-item"
@@ -40,6 +29,9 @@ const CollectionItem = ({
 					{price}
 				</span>
 			</div>
+			<CustomButton>
+				Add to cart
+			</CustomButton>
 		</Card>
 	)
 }
