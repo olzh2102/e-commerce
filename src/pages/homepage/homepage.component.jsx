@@ -1,6 +1,5 @@
 import React from 'react'
 import './homepage.styles.scss'
-import Card from '@material-ui/core/Card'
 import Directory from '../../components/directory/directory.component'
 
 const HomePage = () => (
