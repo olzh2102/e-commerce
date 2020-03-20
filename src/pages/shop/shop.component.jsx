@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import CategoryPage from '../../pages/category/category.component'
+import CollectionPage from '../collection/collection.component'
 import CollectionsOverview from '../../components/colections-overview/collections-overview.component'
 
 const ShopPage = ({ match }) => {
@@ -13,8 +13,8 @@ const ShopPage = ({ match }) => {
 				component={CollectionsOverview}
 			/>
 			<Route
-				path={`${match.path}/:categoryId`}
-				component={CategoryPage}
+				path={`${match.path}/:collectionId`}
+				component={CollectionPage}
 			/>
 		</div>
 	)
