@@ -7,11 +7,12 @@ import {
 	Redirect
 } from 'react-router-dom'
 import Container from '@material-ui/core/Container'
-import './App.css'
 
 import HomePage from './pages/homepage/homepage.component'
 import ShopPage from './pages/shop/shop.component'
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component'
+import CheckoutPage from './pages/checkout/checkout.component'
+
 import Header from './components/header/header.component'
 
 import { setCurrentUser } from './redux/user/user.actions'
@@ -21,6 +22,7 @@ import {
 	createUserProfileDocument
 } from './firebase/firebase.utils'
 
+import './App.css'
 class App extends React.Component {
 	constructor() {
 		super()
@@ -78,6 +80,13 @@ class App extends React.Component {
 						<Route
 							path="/shop"
 							component={ShopPage}
+						/>
+						<Route
+							exact
+							path="/checkout"
+							component={
+								CheckoutPage
+							}
 						/>
 						<Route
 							exact
