@@ -1,7 +1,7 @@
 import React from 'react'
 
-import FormInput from '../../components/form-input/form-input.component'
-import CustomButton from '../../components/custom-button/custom-button.component'
+import FormInput from '../form-input/form-input.component'
+import CustomButton from '../custom-button/custom-button.component'
 
 import {
 	auth,
@@ -22,8 +22,8 @@ class SignUp extends React.Component {
 		}
 	}
 
-	handleSubmit = async e => {
-		e.preventDefault()
+	handleSubmit = async event => {
+		event.preventDefault()
 
 		const {
 			displayName,
@@ -33,7 +33,7 @@ class SignUp extends React.Component {
 		} = this.state
 
 		if (password !== confirmPassword) {
-			alert(`passwords don't match`)
+			alert("passwords don't match")
 			return
 		}
 
@@ -44,11 +44,10 @@ class SignUp extends React.Component {
 				email,
 				password
 			)
+
 			await createUserProfileDocument(
 				user,
-				{
-					displayName
-				}
+				{ displayName }
 			)
 
 			this.setState({
@@ -58,12 +57,13 @@ class SignUp extends React.Component {
 				confirmPassword: ''
 			})
 		} catch (error) {
-			console.log(error)
+			console.error(error)
 		}
 	}
 
-	handleChange(e) {
-		const { name, value } = e.target
+	handleChange = event => {
+		const { name, value } = event.target
+
 		this.setState({ [name]: value })
 	}
 
@@ -74,17 +74,15 @@ class SignUp extends React.Component {
 			password,
 			confirmPassword
 		} = this.state
-
 		return (
 			<div className="sign-up">
 				<h2 className="title">
-					I do not have an account
+					I do not have a account
 				</h2>
 				<span>
-					Sign Up with your email and
+					Sign up with your email and
 					password
 				</span>
-
 				<form
 					className="sign-up-form"
 					onSubmit={this.handleSubmit}
@@ -129,7 +127,6 @@ class SignUp extends React.Component {
 						label="Confirm Password"
 						required
 					/>
-
 					<CustomButton type="submit">
 						SIGN UP
 					</CustomButton>
