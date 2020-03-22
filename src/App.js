@@ -16,12 +16,10 @@ import CheckoutPage from './pages/checkout/checkout.component'
 import Header from './components/header/header.component'
 
 import { setCurrentUser } from './redux/user/user.actions'
-import { selectCollectionsForPreview } from './redux/shop/shop.selectors'
 
 import {
 	auth,
-	createUserProfileDocument,
-	addCollectionAndDocuments
+	createUserProfileDocument
 } from './firebase/firebase.utils'
 
 import './App.css'
@@ -64,16 +62,6 @@ class App extends React.Component {
 					setCurrentUser(userAuth)
 				}
 			}
-		)
-
-		addCollectionAndDocuments(
-			'collections',
-			collectionsArray.map(
-				({ title, items }) => ({
-					title,
-					items
-				})
-			)
 		)
 	}
 
@@ -123,10 +111,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	currentUser: selectCurrentUser(state),
-	collectionsArray: selectCollectionsForPreview(
-		state
-	)
+	currentUser: selectCurrentUser(state)
 })
 
 const mapDispatchToProps = dispatch => ({
