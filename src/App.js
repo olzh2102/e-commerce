@@ -68,7 +68,12 @@ class App extends React.Component {
 
 		addCollectionAndDocuments(
 			'collections',
-			collectionsArray
+			collectionsArray.map(
+				({ title, items }) => ({
+					title,
+					items
+				})
+			)
 		)
 	}
 
