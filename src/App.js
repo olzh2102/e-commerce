@@ -16,10 +16,12 @@ import CheckoutPage from './pages/checkout/checkout.component'
 import Header from './components/header/header.component'
 
 import { setCurrentUser } from './redux/user/user.actions'
+import { selectCollectionsForPreview } from './redux/shop/shop.selectors'
 
 import {
 	auth,
-	createUserProfileDocument
+	createUserProfileDocument,
+	addCollectionAndDocuments
 } from './firebase/firebase.utils'
 
 import './App.css'
@@ -35,7 +37,10 @@ class App extends React.Component {
 	unsubscribeFromAuth = null
 
 	componentDidMount() {
-		const { setCurrentUser } = this.props
+		const {
+			setCurrentUser,
+			collectionsArray
+		} = this.props
 
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(
 			async userAuth => {
@@ -59,6 +64,11 @@ class App extends React.Component {
 					setCurrentUser(userAuth)
 				}
 			}
+		)
+
+		addCollectionAndDocuments(
+			'collections',
+			collectionsArray
 		)
 	}
 
@@ -108,7 +118,10 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	currentUser: selectCurrentUser(state)
+	currentUser: selectCurrentUser(state),
+	collectionsArray: selectCollectionsForPreview(
+		state
+	)
 })
 
 const mapDispatchToProps = dispatch => ({
