@@ -21,30 +21,28 @@ export const fecthCollectionsFailure = errorMessage => ({
 })
 
 export const fetchCollectionsStartAsync = () => {
-	return dispatch => {
-		const collectionRef = firestore.collection(
-			'collections'
-		)
-		dispatch(fetchCollectionsStart())
+	return async dispatch => {
+		try {
+			const collectionRef = firestore.collection(
+				'collections'
+			)
+			dispatch(fetchCollectionsStart())
 
-		collectionRef
-			.get()
-			.then(snapshot => {
-				const collectionsMap = convertCollectionsSnapshotToMap(
-					snapshot
-				)
-				dispatch(
-					fetchCollectionsSuccess(
-						collectionsMap
-					)
-				)
-			})
-			.catch(error =>
-				dispatch(
-					fecthCollectionsFailure(
-						error.message
-					)
+			const snapshot = await collectionRef.get()
+			const collectionsMap = convertCollectionsSnapshotToMap(
+				snapshot
+			)
+			dispatch(
+				fetchCollectionsSuccess(
+					collectionsMap
 				)
 			)
+		} catch (error) {
+			dispatch(
+				fecthCollectionsFailure(
+					error.message
+				)
+			)
+		}
 	}
 }
