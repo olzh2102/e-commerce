@@ -1,11 +1,6 @@
 import React from 'react'
-
 import { toggleCartHidden } from '../../redux/cart/cart.actions'
-
-import CustomButton from '../custom-button/custom-button.component'
 import CartItem from '../cart-item/cart-item.component'
-
-import './cart-dropdown.styles.scss'
 
 import {
 	CartDropdownContainer,
