@@ -7,13 +7,20 @@ import CartItem from '../cart-item/cart-item.component'
 
 import './cart-dropdown.styles.scss'
 
+import {
+	CartDropdownContainer,
+	CartDropdownButton,
+	EmptyMessageContainer,
+	CartItemsContainer
+} from './cart-dropdown.styles'
+
 const CartDropdown = ({
 	cartItems,
 	history,
 	dispatch
 }) => (
-	<div className="cart-dropdown">
-		<div className="cart-items">
+	<CartDropdownContainer>
+		<CartItemsContainer>
 			{cartItems.length ? (
 				cartItems.map(cartItem => (
 					<CartItem
@@ -22,20 +29,20 @@ const CartDropdown = ({
 					/>
 				))
 			) : (
-				<span className="empty-message">
+				<EmptyMessageContainer>
 					Your cart is empty
-				</span>
+				</EmptyMessageContainer>
 			)}
-		</div>
-		<CustomButton
+		</CartItemsContainer>
+		<CartDropdownButton
 			onClick={() => {
 				history.push('/checkout')
 				dispatch(toggleCartHidden())
 			}}
 		>
 			GO TO CHECKOUT
-		</CustomButton>
-	</div>
+		</CartDropdownButton>
+	</CartDropdownContainer>
 )
 
 export default CartDropdown
