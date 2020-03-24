@@ -8,7 +8,7 @@ import { auth } from '../../firebase/firebase.utils'
 
 import { ReactComponent as Logo } from '../../assets/codesandbox.svg'
 import CartIcon from '../cart-icon/cart-icon.component'
-import CartDropdown from '../cart-dropdown/cart-dropdown.component'
+import CartDropdownContainer from '../cart-dropdown/cart-dropdown.container'
 
 import {
 	HeaderContainer,
@@ -44,7 +44,7 @@ const Header = ({ currentUser, hidden }) => (
 			)}
 			<CartIcon />
 		</OptionsContainer>
-		{!hidden && <CartDropdown />}
+		{!hidden && <CartDropdownContainer />}
 	</HeaderContainer>
 )
 
