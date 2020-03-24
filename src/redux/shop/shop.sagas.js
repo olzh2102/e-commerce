@@ -1,5 +1,5 @@
 import {
-	takeEvery,
+	takeLatest,
 	call,
 	put
 } from 'redux-saga/effects'
@@ -37,7 +37,7 @@ export function* fetchCollectionsAsync() {
 }
 
 export function* fetchCollectionsStart() {
-	yield takeEvery(
+	yield takeLatest(
 		ShopActionTypes.FETCH_COLLECTIONS_START,
 		fetchCollectionsAsync
 	)
