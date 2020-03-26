@@ -15,24 +15,8 @@ import CheckoutPage from './pages/checkout/checkout.component'
 
 import Header from './components/header/header.component'
 
-import { setCurrentUser } from './redux/user/user.actions'
-
 import './App.css'
 class App extends React.Component {
-	constructor() {
-		super()
-
-		this.state = {
-			currentUser: null
-		}
-	}
-
-	unsubscribeFromAuth = null
-
-	componentWillUnmount() {
-		this.unsubscribeFromAuth()
-	}
-
 	render() {
 		return (
 			<>
@@ -78,12 +62,4 @@ const mapStateToProps = state => ({
 	currentUser: selectCurrentUser(state)
 })
 
-const mapDispatchToProps = dispatch => ({
-	setCurrentUser: user =>
-		dispatch(setCurrentUser(user))
-})
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(App)
+export default connect(mapStateToProps)(App)

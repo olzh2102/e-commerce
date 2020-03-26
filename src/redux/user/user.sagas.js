@@ -7,10 +7,8 @@ import {
 
 import { UserActionTypes } from './user.types'
 import {
-	googleSignInSuccess,
-	googleSignInFailure,
-	emailSignInFailure,
-	emailSignInSuccess
+	signInSuccess,
+	signInFailure
 } from './user.actions'
 
 import {
@@ -33,13 +31,13 @@ export function* signInWithGoogle() {
 		const userSnapshot = yield userRef.get()
 
 		yield put(
-			googleSignInSuccess({
+			signInSuccess({
 				id: userSnapshot.id,
 				...userSnapshot.data()
 			})
 		)
 	} catch (error) {
-		yield put(googleSignInFailure(error))
+		yield put(signInFailure(error))
 	}
 }
 
@@ -67,13 +65,13 @@ export function* singInWithEmail({
 		const userSnapshot = yield userRef.get()
 
 		yield put(
-			emailSignInSuccess({
+			signInSuccess({
 				id: userSnapshot.id,
 				...userSnapshot.data()
 			})
 		)
 	} catch (error) {
-		yield put(emailSignInFailure(error))
+		yield put(signInFailure(error))
 	}
 }
 
