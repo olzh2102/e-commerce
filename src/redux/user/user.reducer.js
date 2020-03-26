@@ -11,7 +11,6 @@ const userReducer = (
 ) => {
 	switch (action.type) {
 		case UserActionTypes.SIGN_IN_SUCCESS:
-		case UserActionTypes.SIGN_IN_SUCCESS:
 			return {
 				...state,
 				error: null,
@@ -19,10 +18,17 @@ const userReducer = (
 			}
 
 		case UserActionTypes.SIGN_IN_FAILURE:
-		case UserActionTypes.SIGN_IN_FAILURE:
+		case UserActionTypes.SIGN_OUT_FAILURE:
 			return {
 				...state,
 				error: action.payload
+			}
+
+		case UserActionTypes.SIGN_OUT_SUCCESS:
+			return {
+				...state,
+				currentUser: null,
+				error: null
 			}
 
 		default:
