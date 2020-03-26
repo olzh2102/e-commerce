@@ -45,6 +45,7 @@ export function* getSnapshotFromUserAuth(
 	}
 }
 
+// sagas related to GOOGLE SIGN IN
 export function* signInWithGoogle() {
 	try {
 		const {
@@ -65,6 +66,7 @@ export function* onGoogleSignInStart() {
 	)
 }
 
+// sagas related to SIGN IN
 export function* singInWithEmail({
 	payload: { email, password }
 }) {
@@ -88,6 +90,7 @@ export function* onEmailSignInStart() {
 	)
 }
 
+// sagas related to USER SESSION
 export function* isUserAuthenticated() {
 	try {
 		const userAuth = yield getCurrentUser()
@@ -107,6 +110,7 @@ export function* onCheckUserSession() {
 	)
 }
 
+// sagas related to SIGN OUT
 export function* signOut() {
 	try {
 		yield auth.signOut()
@@ -123,6 +127,7 @@ export function* onSignOutStart() {
 	)
 }
 
+// sagas related to SIGN UP
 export function* signUp({
 	payload: { displayName, email, password }
 }) {
@@ -168,6 +173,7 @@ export function* onSignUpSuccess() {
 	)
 }
 
+// collection all sagas
 export function* userSagas() {
 	yield all([
 		call(onGoogleSignInStart),
