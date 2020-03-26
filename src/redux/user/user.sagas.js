@@ -8,7 +8,9 @@ import {
 import { UserActionTypes } from './user.types'
 import {
 	googleSignInSuccess,
-	googleSignInFailure
+	googleSignInFailure,
+	emailSignInFailure,
+	emailSignInSuccess
 } from './user.actions'
 
 import {
@@ -48,6 +50,43 @@ export function* onGoogleSignInStart() {
 	)
 }
 
+export function* singInWithEmail({
+	payload: { email, password }
+}) {
+	try {
+		const {
+			user
+		} = yield auth.signInWithEmailAndPassword(
+			email,
+			password
+		)
+		const userRef = yield call(
+			createUserProfileDocument,
+			user
+		)
+		const userSnapshot = yield userRef.get()
+
+		yield put(
+			emailSignInSuccess({
+				id: userSnapshot.id,
+				...userSnapshot.data()
+			})
+		)
+	} catch (error) {
+		yield put(emailSignInFailure(error))
+	}
+}
+
+export function* onEmailSignInStart() {
+	yield takeLatest(
+		UserActionTypes.EMAIL_SIGN_IN_START,
+		singInWithEmail
+	)
+}
+
 export function* userSagas() {
-	yield all([call(onGoogleSignInStart)])
+	yield all([
+		call(onGoogleSignInStart),
+		call(onEmailSignInStart)
+	])
 }

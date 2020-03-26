@@ -29,7 +29,7 @@ export const emailSignInSuccess = user => ({
 	payload: user
 })
 
-export const emailSignInFailuer = error => ({
+export const emailSignInFailure = error => ({
 	type: UserActionTypes.EMAIL_SIGN_IN_FAILURE,
 	payload: error
 })
