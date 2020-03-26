@@ -6,6 +6,10 @@ import {
 } from 'redux-saga/effects'
 
 import { UserActionTypes } from './user.types'
+import {
+	googleSignInSuccess,
+	googleSignInFailure
+} from './user.actions'
 
 import {
 	googleProvider,
@@ -15,11 +19,26 @@ import {
 
 export function* signInWithGoogle() {
 	try {
-		const userRef = yield auth.signInWithPopup(
+		const {
+			user
+		} = yield auth.signInWithPopup(
 			googleProvider
 		)
-		console.log('userref:', userRef)
-	} catch (error) {}
+		const userRef = yield call(
+			createUserProfileDocument,
+			user
+		)
+		const userSnapshot = yield userRef.get()
+
+		yield put(
+			googleSignInSuccess({
+				id: userSnapshot.id,
+				...userSnapshot.data()
+			})
+		)
+	} catch (error) {
+		yield put(googleSignInFailure(error))
+	}
 }
 
 export function* onGoogleSignInStart() {
