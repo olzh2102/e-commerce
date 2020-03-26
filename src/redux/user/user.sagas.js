@@ -17,16 +17,13 @@ import {
 	createUserProfileDocument
 } from '../../firebase/firebase.utils'
 
-export function* signInWithGoogle() {
+export function* getSnapshotFromUserAuth(
+	userAuth
+) {
 	try {
-		const {
-			user
-		} = yield auth.signInWithPopup(
-			googleProvider
-		)
 		const userRef = yield call(
 			createUserProfileDocument,
-			user
+			userAuth
 		)
 		const userSnapshot = yield userRef.get()
 
@@ -36,6 +33,19 @@ export function* signInWithGoogle() {
 				...userSnapshot.data()
 			})
 		)
+	} catch (error) {
+		yield put(signInFailure(error))
+	}
+}
+
+export function* signInWithGoogle() {
+	try {
+		const {
+			user
+		} = yield auth.signInWithPopup(
+			googleProvider
+		)
+		yield getSnapshotFromUserAuth(user)
 	} catch (error) {
 		yield put(signInFailure(error))
 	}
@@ -58,18 +68,7 @@ export function* singInWithEmail({
 			email,
 			password
 		)
-		const userRef = yield call(
-			createUserProfileDocument,
-			user
-		)
-		const userSnapshot = yield userRef.get()
-
-		yield put(
-			signInSuccess({
-				id: userSnapshot.id,
-				...userSnapshot.data()
-			})
-		)
+		yield getSnapshotFromUserAuth(user)
 	} catch (error) {
 		yield put(signInFailure(error))
 	}
