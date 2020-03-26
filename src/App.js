@@ -17,11 +17,6 @@ import Header from './components/header/header.component'
 
 import { setCurrentUser } from './redux/user/user.actions'
 
-import {
-	auth,
-	createUserProfileDocument
-} from './firebase/firebase.utils'
-
 import './App.css'
 class App extends React.Component {
 	constructor() {
@@ -33,37 +28,6 @@ class App extends React.Component {
 	}
 
 	unsubscribeFromAuth = null
-
-	componentDidMount() {
-		const {
-			setCurrentUser,
-			collectionsArray
-		} = this.props
-
-		// this.unsubscribeFromAuth = auth.onAuthStateChanged(
-		// 	async userAuth => {
-		// 		if (userAuth) {
-		// 			const userRef = await createUserProfileDocument(
-		// 				userAuth
-		// 			)
-
-		// 			userRef.onSnapshot(
-		// 				snapShot => {
-		// 					setCurrentUser({
-		// 						currentUser: {
-		// 							id:
-		// 								snapShot.id,
-		// 							...snapShot.data()
-		// 						}
-		// 					})
-		// 				}
-		// 			)
-		// 		} else {
-		// 			setCurrentUser(userAuth)
-		// 		}
-		// 	}
-		// )
-	}
 
 	componentWillUnmount() {
 		this.unsubscribeFromAuth()
