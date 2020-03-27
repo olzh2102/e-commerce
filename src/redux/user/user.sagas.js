@@ -11,7 +11,6 @@ import {
 	signInFailure,
 	signOutFailure,
 	signOutSuccess,
-	signUpSuccess,
 	signUpFailure
 } from './user.actions'
 

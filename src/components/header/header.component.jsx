@@ -5,7 +5,6 @@ import { createStructuredSelector } from 'reselect'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 import { signOutStart } from '../../redux/user/user.actions'
 import { selectCartHidden } from '../../redux/cart/cart.selectors'
-import { auth } from '../../firebase/firebase.utils'
 
 import { ReactComponent as Logo } from '../../assets/codesandbox.svg'
 import CartIcon from '../cart-icon/cart-icon.component'
