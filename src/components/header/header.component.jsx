@@ -1,11 +1,5 @@
-import React, {
-	useContext,
-	useState
-} from 'react'
-import { connect } from 'react-redux'
-import { createStructuredSelector } from 'reselect'
+import React, { useContext } from 'react'
 
-import { selectCartHidden } from '../../redux/cart/cart.selectors'
 import { auth } from '../../firebase/firebase.utils'
 
 import { ReactComponent as Logo } from '../../assets/codesandbox.svg'
@@ -61,8 +55,5 @@ const Header = () => {
 		</HeaderContainer>
 	)
 }
-const mapStateToProps = createStructuredSelector({
-	hidden: selectCartHidden
-})
 
-export default connect(mapStateToProps)(Header)
+export default Header
