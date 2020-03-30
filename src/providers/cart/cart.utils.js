@@ -52,3 +52,28 @@ export const removeItemFromCart = (
 			: cartItem
 	)
 }
+
+export const filterItemFromCart = (
+	cartItems,
+	item
+) => {
+	return cartItems.filter(
+		cartItem => cartItem.id !== item.id
+	)
+}
+
+export const getCartItemsCount = cartItems =>
+	cartItems.reduce(
+		(accumalatedQuantity, cartItem) =>
+			accumalatedQuantity +
+			cartItem.quantity,
+		0
+	)
+
+export const getTotal = cartItems =>
+	cartItems.reduce(
+		(accumalatedPrice, cartItem) =>
+			accumalatedPrice +
+			cartItem.quantity * cartItem.price,
+		0
+	)

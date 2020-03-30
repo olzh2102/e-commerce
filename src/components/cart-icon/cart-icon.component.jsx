@@ -1,15 +1,15 @@
 import React, { useContext } from 'react'
-import { connect } from 'react-redux'
-import { selectCartItemsCount } from '../../redux/cart/cart.selectors'
+
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg'
 import { CartContext } from '../../providers/cart/cart.provider'
 
 import './cart-icon.styles.scss'
 
-const CartIcon = ({ itemCount }) => {
-	const { toggleHidden } = useContext(
-		CartContext
-	)
+const CartIcon = () => {
+	const {
+		toggleHidden,
+		cartItemsCount
+	} = useContext(CartContext)
 
 	return (
 		<div
@@ -18,14 +18,10 @@ const CartIcon = ({ itemCount }) => {
 		>
 			<ShoppingIcon className="shopping-icon" />
 			<span className="item-count">
-				{itemCount}
+				{cartItemsCount}
 			</span>
 		</div>
 	)
 }
 
-const mapStateToProps = state => ({
-	itemCount: selectCartItemsCount(state)
-})
-
-export default connect(mapStateToProps)(CartIcon)
+export default CartIcon
