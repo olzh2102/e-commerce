@@ -1,6 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { selectCurrentUser } from './redux/user/user.selectors'
 import {
 	Switch,
 	Route,
@@ -15,7 +13,7 @@ import CheckoutPage from './pages/checkout/checkout.component'
 
 import Header from './components/header/header.component'
 
-import { setCurrentUser } from './redux/user/user.actions'
+import CurrentUserContext from './contexts/current-user/current-user.context'
 
 import {
 	auth,
@@ -35,11 +33,6 @@ class App extends React.Component {
 	unsubscribeFromAuth = null
 
 	componentDidMount() {
-		const {
-			setCurrentUser,
-			collectionsArray
-		} = this.props
-
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(
 			async userAuth => {
 				if (userAuth) {
@@ -49,7 +42,7 @@ class App extends React.Component {
 
 					userRef.onSnapshot(
 						snapShot => {
-							setCurrentUser({
+							this.setState({
 								currentUser: {
 									id:
 										snapShot.id,
@@ -59,7 +52,9 @@ class App extends React.Component {
 						}
 					)
 				} else {
-					setCurrentUser(userAuth)
+					this.setState({
+						currentUser: userAuth
+					})
 				}
 			}
 		)
@@ -72,7 +67,11 @@ class App extends React.Component {
 	render() {
 		return (
 			<>
-				<Header />
+				<CurrentUserContext.Provider
+					value={this.state.currentUser}
+				>
+					<Header />
+				</CurrentUserContext.Provider>
 				<Container>
 					<Switch>
 						<Route
@@ -95,7 +94,7 @@ class App extends React.Component {
 							exact
 							path="/signin"
 							render={() =>
-								this.props
+								this.state
 									.currentUser ? (
 									<Redirect to="/" />
 								) : (
@@ -110,16 +109,4 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	currentUser: selectCurrentUser(state)
-})
-
-const mapDispatchToProps = dispatch => ({
-	setCurrentUser: user =>
-		dispatch(setCurrentUser(user))
-})
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(App)
+export default App
