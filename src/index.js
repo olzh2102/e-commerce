@@ -13,13 +13,13 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloClient, gql } from 'apollo-boost'
 
+import './index.css'
+import App from './App'
+
 import {
 	resolvers,
 	typeDefs
 } from './graphql/resolvers'
-
-import './index.css'
-import App from './App'
 
 // establish connection with backend server
 const httpLink = createHttpLink({

@@ -1,4 +1,4 @@
-import gql from 'apollo-boost'
+import { gql } from 'apollo-boost'
 
 export const typeDefs = gql`
 	extend type Mutation {
@@ -17,10 +17,8 @@ export const resolvers = {
 		toggleCartHidden: (
 			_root,
 			_args,
-			_context,
-			_info
+			{ cache }
 		) => {
-			const { cache } = _context
 			const {
 				cartHidden
 			} = cache.readQuery({
