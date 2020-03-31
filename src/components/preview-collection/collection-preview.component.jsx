@@ -1,14 +1,13 @@
 import React from 'react'
 import CollectionItem from '../collection-item/collection-item.component'
-import { useHistory } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
-
+import { useHistory } from 'react-router-dom'
 import './collection-preview.styles.scss'
 
 const CollectionPreview = ({
 	title,
 	items,
-	routeName
+	match
 }) => {
 	const history = useHistory()
 	return (
@@ -17,7 +16,7 @@ const CollectionPreview = ({
 				className="title"
 				onClick={() =>
 					history.push(
-						`shop/${routeName}`
+						`shop/${title.toLowerCase()}`
 					)
 				}
 			>
