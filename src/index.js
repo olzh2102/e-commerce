@@ -14,7 +14,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloClient, gql } from 'apollo-boost'
 
 import './index.css'
-import App from './App'
+import { default as App } from './App.container'
 
 import {
 	resolvers,
@@ -41,6 +41,7 @@ client.writeData({
 		cartItems: [],
 		itemCount: 0,
 		cartTotal: 0,
+		currentUser: null,
 	},
 })
 

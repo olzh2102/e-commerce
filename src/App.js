@@ -1,6 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { selectCurrentUser } from './redux/user/user.selectors'
 import {
 	Switch,
 	Route,
@@ -11,11 +9,9 @@ import Container from '@material-ui/core/Container'
 import HomePage from './pages/homepage/homepage.component'
 import ShopPage from './pages/shop/shop.component'
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component'
+
 import { default as CheckoutPage } from './pages/checkout/checkout.container'
-
 import { default as Header } from './components/header/header.container'
-
-import { setCurrentUser } from './redux/user/user.actions'
 
 import {
 	auth,
@@ -24,14 +20,6 @@ import {
 
 import './App.css'
 class App extends React.Component {
-	constructor() {
-		super()
-
-		this.state = {
-			currentUser: null,
-		}
-	}
-
 	unsubscribeFromAuth = null
 
 	componentDidMount() {
@@ -107,16 +95,4 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
-	currentUser: selectCurrentUser(state),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-	setCurrentUser: (user) =>
-		dispatch(setCurrentUser(user)),
-})
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(App)
+export default App
