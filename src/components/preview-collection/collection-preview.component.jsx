@@ -1,5 +1,5 @@
 import React from 'react'
-import CollectionItem from '../collection-item/collection-item.component'
+import { default as CollectionItem } from '../collection-item/collection-item.container'
 import Grid from '@material-ui/core/Grid'
 import { useHistory } from 'react-router-dom'
 import './collection-preview.styles.scss'
@@ -7,7 +7,7 @@ import './collection-preview.styles.scss'
 const CollectionPreview = ({
 	title,
 	items,
-	match
+	match,
 }) => {
 	const history = useHistory()
 	return (
@@ -32,7 +32,7 @@ const CollectionPreview = ({
 					.filter(
 						(item, index) => index < 4
 					)
-					.map(item => (
+					.map((item) => (
 						<Grid item xs={6} sm={3}>
 							<CollectionItem
 								key={item.id}
