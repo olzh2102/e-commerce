@@ -16,7 +16,7 @@ const HeaderContainer = () => (
 		{({ data }) => (
 			<Header
 				hidden={data.cartHidden}
-				currentUser={currentUser}
+				currentUser={data.currentUser}
 			/>
 		)}
 	</Query>
