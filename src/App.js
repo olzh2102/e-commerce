@@ -4,14 +4,14 @@ import { selectCurrentUser } from './redux/user/user.selectors'
 import {
 	Switch,
 	Route,
-	Redirect
+	Redirect,
 } from 'react-router-dom'
 import Container from '@material-ui/core/Container'
 
 import HomePage from './pages/homepage/homepage.component'
 import ShopPage from './pages/shop/shop.component'
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component'
-import CheckoutPage from './pages/checkout/checkout.component'
+import { default as CheckoutPage } from './pages/checkout/checkout.container'
 
 import { default as Header } from './components/header/header.container'
 
@@ -19,7 +19,7 @@ import { setCurrentUser } from './redux/user/user.actions'
 
 import {
 	auth,
-	createUserProfileDocument
+	createUserProfileDocument,
 } from './firebase/firebase.utils'
 
 import './App.css'
@@ -28,7 +28,7 @@ class App extends React.Component {
 		super()
 
 		this.state = {
-			currentUser: null
+			currentUser: null,
 		}
 	}
 
@@ -38,20 +38,20 @@ class App extends React.Component {
 		const { setCurrentUser } = this.props
 
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(
-			async userAuth => {
+			async (userAuth) => {
 				if (userAuth) {
 					const userRef = await createUserProfileDocument(
 						userAuth
 					)
 
 					userRef.onSnapshot(
-						snapShot => {
+						(snapShot) => {
 							setCurrentUser({
 								currentUser: {
 									id:
 										snapShot.id,
-									...snapShot.data()
-								}
+									...snapShot.data(),
+								},
 							})
 						}
 					)
@@ -107,13 +107,13 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	currentUser: selectCurrentUser(state)
+const mapStateToProps = (state) => ({
+	currentUser: selectCurrentUser(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-	setCurrentUser: user =>
-		dispatch(setCurrentUser(user))
+const mapDispatchToProps = (dispatch) => ({
+	setCurrentUser: (user) =>
+		dispatch(setCurrentUser(user)),
 })
 
 export default connect(
