@@ -1,5 +1,8 @@
 import { gql } from 'apollo-boost'
-import { addItemToCart } from './cart.utils'
+import {
+	addItemToCart,
+	getCartItemCount,
+} from './cart.utils'
 
 // a-la action types
 export const typeDefs = gql`
@@ -13,7 +16,7 @@ export const typeDefs = gql`
 	}
 `
 
-// a-la actions
+// a-la actions - all names (lines 19, 25, 31) coming from index.js
 const GET_CART_HIDDEN = gql`
 	{
 		cartHidden @client
@@ -23,6 +26,12 @@ const GET_CART_HIDDEN = gql`
 const GET_CART_ITEMS = gql`
 	{
 		cartItems @client
+	}
+`
+
+const GET_ITEM_COUNT = gql`
+	{
+		itemCount @client
 	}
 `
 
@@ -63,6 +72,15 @@ export const resolvers = {
 				cartItems,
 				item
 			)
+
+			cache.writeQuery({
+				query: GET_ITEM_COUNT,
+				data: {
+					itemCount: getCartItemCount(
+						newCartItems
+					),
+				},
+			})
 
 			cache.writeQuery({
 				query: GET_CART_ITEMS,

@@ -3,17 +3,17 @@ export const addItemToCart = (
 	cartItemToAdd
 ) => {
 	const existingCartItem = cartItems.find(
-		cartItem =>
+		(cartItem) =>
 			cartItem.id === cartItemToAdd.id
 	)
 
 	if (existingCartItem) {
-		return cartItems.map(cartItem =>
+		return cartItems.map((cartItem) =>
 			cartItem.id === cartItemToAdd.id
 				? {
 						...cartItem,
 						quantity:
-							cartItem.quantity + 1
+							cartItem.quantity + 1,
 				  }
 				: cartItem
 		)
@@ -21,7 +21,7 @@ export const addItemToCart = (
 
 	return [
 		...cartItems,
-		{ ...cartItemToAdd, quantity: 1 }
+		{ ...cartItemToAdd, quantity: 1 },
 	]
 }
 
@@ -30,25 +30,33 @@ export const removeItemFromCart = (
 	cartItemToRemove
 ) => {
 	const existingCartItem = cartItems.find(
-		cartItem =>
+		(cartItem) =>
 			cartItem.id === cartItemToRemove.id
 	)
 
 	if (existingCartItem.quantity === 1) {
 		return cartItems.filter(
-			cartItem =>
+			(cartItem) =>
 				cartItem.id !==
 				cartItemToRemove.id
 		)
 	}
 
-	return cartItems.map(cartItem =>
+	return cartItems.map((cartItem) =>
 		cartItem.id === cartItemToRemove.id
 			? {
 					...cartItem,
 					quantity:
-						cartItem.quantity - 1
+						cartItem.quantity - 1,
 			  }
 			: cartItem
 	)
 }
+
+export const getCartItemCount = (cartItems) =>
+	cartItems.reduce(
+		(accumalatedQuantity, cartItem) =>
+			accumalatedQuantity +
+			cartItem.quantity,
+		0
+	)
