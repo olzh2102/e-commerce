@@ -18,12 +18,12 @@ import App from './App'
 
 import {
 	resolvers,
-	typeDefs
+	typeDefs,
 } from './graphql/resolvers'
 
 // establish connection with backend server
 const httpLink = createHttpLink({
-	uri: 'https://www.crwn-clothing.com' // graphql playground
+	uri: 'https://www.crwn-clothing.com', // graphql playground
 })
 
 const cache = new InMemoryCache()
@@ -32,13 +32,14 @@ const client = new ApolloClient({
 	link: httpLink,
 	cache,
 	typeDefs,
-	resolvers
+	resolvers,
 })
 
 client.writeData({
 	data: {
-		cartHidden: true
-	}
+		cartHidden: true,
+		cartItems: [],
+	},
 })
 
 client
@@ -57,9 +58,9 @@ client
 					}
 				}
 			}
-		`
+		`,
 	})
-	.then(res =>
+	.then((res) =>
 		console.log('RES from GRAPHQL: ', res)
 	)
 

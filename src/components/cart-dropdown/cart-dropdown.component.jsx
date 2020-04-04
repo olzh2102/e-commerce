@@ -1,8 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { selectCartItems } from '../../redux/cart/cart.selectors'
-import { toggleCartHidden } from '../../redux/cart/cart.actions'
 import CustomButton from '../custom-button/custom-button.component'
 import CartItem from '../cart-item/cart-item.component'
 import './cart-dropdown.styles.scss'
@@ -10,12 +7,12 @@ import './cart-dropdown.styles.scss'
 const CartDropdown = ({
 	cartItems,
 	history,
-	dispatch
+	toggleCartHidden,
 }) => (
 	<div className="cart-dropdown">
 		<div className="cart-items">
 			{cartItems.length ? (
-				cartItems.map(cartItem => (
+				cartItems.map((cartItem) => (
 					<CartItem
 						key={cartItem.id}
 						item={cartItem}
@@ -30,7 +27,7 @@ const CartDropdown = ({
 		<CustomButton
 			onClick={() => {
 				history.push('/checkout')
-				dispatch(toggleCartHidden())
+				toggleCartHidden()
 			}}
 		>
 			GO TO CHECKOUT
@@ -38,10 +35,4 @@ const CartDropdown = ({
 	</div>
 )
 
-const mapStateToProps = state => ({
-	cartItems: selectCartItems(state)
-})
-
-export default withRouter(
-	connect(mapStateToProps)(CartDropdown)
-)
+export default withRouter(CartDropdown)

@@ -7,13 +7,13 @@ import { auth } from '../../firebase/firebase.utils'
 
 import { ReactComponent as Logo } from '../../assets/codesandbox.svg'
 import { default as CartIcon } from '../cart-icon/cart-icon.container'
-import CartDropdown from '../cart-dropdown/cart-dropdown.component'
+import { default as CartDropdown } from '../cart-dropdown/cart-dropdown.container'
 
 import {
 	HeaderContainer,
 	LogoContainer,
 	OptionsContainer,
-	OptionLink
+	OptionLink,
 } from './header.styles'
 
 const Header = ({ currentUser, hidden }) => (
@@ -48,7 +48,7 @@ const Header = ({ currentUser, hidden }) => (
 )
 
 const mapStateToProps = createStructuredSelector({
-	currentUser: selectCurrentUser
+	currentUser: selectCurrentUser,
 })
 
 export default connect(mapStateToProps)(Header)
