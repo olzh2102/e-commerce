@@ -14,6 +14,7 @@ import {
 
 import Container from '@material-ui/core/Container'
 import Header from './components/header/header.component'
+import Spinner from './components/spinner/spinner.component'
 
 import { GlobalStyle } from './global.styles'
 
@@ -47,9 +48,7 @@ const App = ({
 			<Container>
 				<Switch>
 					<Suspense
-						fallback={
-							<div>Loading...</div>
-						}
+						fallback={<Spinner />}
 					>
 						<Route
 							exact
