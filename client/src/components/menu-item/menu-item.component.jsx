@@ -9,7 +9,7 @@ const MenuItem = ({
 	size,
 	history,
 	linkUrl,
-	match
+	match,
 }) => (
 	<Card
 		className={`${size} menu-item`}
@@ -21,7 +21,7 @@ const MenuItem = ({
 		<div
 			className="background-image"
 			style={{
-				backgroundImage: `url(${imageUrl})`
+				backgroundImage: `url(${imageUrl})`,
 			}}
 		/>
 		<div className="content">
