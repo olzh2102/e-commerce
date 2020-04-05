@@ -5,29 +5,30 @@ import { checkUserSession } from './redux/user/user.actions'
 import {
 	Switch,
 	Route,
-	Redirect
+	Redirect,
 } from 'react-router-dom'
+
 import Container from '@material-ui/core/Container'
 
 import HomePage from './pages/homepage/homepage.component'
 import ShopPage from './pages/shop/shop.component'
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component'
 import CheckoutPage from './pages/checkout/checkout.component'
-
 import Header from './components/header/header.component'
 
-import './App.css'
+import { GlobalStyle } from './global.styles'
 
 const App = ({
 	checkUserSession,
-	currentUser
+	currentUser,
 }) => {
 	useEffect(() => {
 		checkUserSession()
 	}, [checkUserSession])
 
 	return (
-		<>
+		<div>
+			<GlobalStyle />
 			<Header />
 			<Container>
 				<Switch>
@@ -58,17 +59,17 @@ const App = ({
 					/>
 				</Switch>
 			</Container>
-		</>
+		</div>
 	)
 }
 
-const mapStateToProps = state => ({
-	currentUser: selectCurrentUser(state)
+const mapStateToProps = (state) => ({
+	currentUser: selectCurrentUser(state),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 	checkUserSession: () =>
-		dispatch(checkUserSession())
+		dispatch(checkUserSession()),
 })
 
 export default connect(
