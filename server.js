@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const path = require('path')
+const compression = require('compression')
 
 if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config()
@@ -14,6 +15,7 @@ const stripe = require('stripe')(
 const app = express()
 const PORT = process.env.PORT || 4000
 
+app.use(compression())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -45,7 +47,7 @@ app.post('/payment', (req, res) => {
 	const body = {
 		source: req.body.token.id,
 		amount: req.body.amount,
-		currency: 'usd'
+		currency: 'usd',
 	}
 
 	stripe.charges.create(
@@ -53,13 +55,13 @@ app.post('/payment', (req, res) => {
 		(stripeErr, stripeRes) => {
 			if (stripeErr) {
 				res.status(500).json({
-					error: stripeErr
+					error: stripeErr,
 				})
 			}
 
 			res.status(200).json({
 				success: true,
-				data: stripeRes
+				data: stripeRes,
 			})
 		}
 	)
