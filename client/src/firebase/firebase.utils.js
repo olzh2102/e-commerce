@@ -13,7 +13,7 @@ const config = {
 	storageBucket: 'e-commerce-fc3b7.appspot.com',
 	messagingSenderId: '107136796974',
 	appId:
-		'1:107136796974:web:ad2f220e4df875aee092bf'
+		'1:107136796974:web:ad2f220e4df875aee092bf',
 }
 
 export const createUserProfileDocument = async (
@@ -36,7 +36,7 @@ export const createUserProfileDocument = async (
 				displayName,
 				email,
 				createdAt,
-				...additionalData
+				...additionalData,
 			})
 		} catch (error) {
 			console.log(
@@ -58,7 +58,7 @@ export const addCollectionAndDocuments = async (
 	)
 
 	const batch = firestore.batch()
-	objectsToAdd.forEach(obj => {
+	objectsToAdd.forEach((obj) => {
 		const newDocRef = collectionRef.doc()
 		batch.set(newDocRef, obj)
 	})
@@ -66,9 +66,11 @@ export const addCollectionAndDocuments = async (
 	return await batch.commit()
 }
 
-export const convertCollectionsSnapshotToMap = collections => {
+export const convertCollectionsSnapshotToMap = (
+	collections
+) => {
 	const transformedCollection = collections.docs.map(
-		doc => {
+		(doc) => {
 			const { title, items } = doc.data()
 
 			return {
@@ -77,7 +79,7 @@ export const convertCollectionsSnapshotToMap = collections => {
 				),
 				id: doc.id,
 				title,
-				items
+				items,
 			}
 		}
 	)
@@ -93,10 +95,30 @@ export const convertCollectionsSnapshotToMap = collections => {
 	)
 }
 
+export const getUserCartRef = async (userId) => {
+	const cartsRef = firestore
+		.collection('carts')
+		.where('userId', '==', userId)
+	const snapShot = await cartsRef.get()
+
+	if (snapShot.empty) {
+		const cartDocRef = firestore
+			.collection('carts')
+			.doc()
+		await cartDocRef.set({
+			userId,
+			cartItems: [],
+		})
+		return cartDocRef
+	} else {
+		return snapShot.docs[0].ref
+	}
+}
+
 export const getCurrentUser = () => {
 	return new Promise((resolve, reject) => {
 		const unsubscribe = auth.onAuthStateChanged(
-			userAuth => {
+			(userAuth) => {
 				unsubscribe()
 				resolve(userAuth)
 			},
@@ -112,7 +134,7 @@ export const firestore = firebase.firestore()
 
 export const googleProvider = new firebase.auth.GoogleAuthProvider()
 googleProvider.setCustomParameters({
-	prompt: 'select_account'
+	prompt: 'select_account',
 })
 export const signInWithGoogle = () =>
 	auth.signInWithPopup(googleProvider)

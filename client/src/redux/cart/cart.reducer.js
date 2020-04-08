@@ -1,11 +1,11 @@
 import CartActionTypes from './cart.types'
 import {
 	addItemToCart,
-	removeItemFromCart
+	removeItemFromCart,
 } from './cart.utils'
 const INITIAL_STATE = {
 	hidden: true,
-	cartItems: []
+	cartItems: [],
 }
 
 const cartReducer = (
@@ -16,7 +16,7 @@ const cartReducer = (
 		case CartActionTypes.TOGGLE_CART_HIDDEN:
 			return {
 				...state,
-				hidden: !state.hidden
+				hidden: !state.hidden,
 			}
 
 		case CartActionTypes.ADD_ITEM:
@@ -25,7 +25,7 @@ const cartReducer = (
 				cartItems: addItemToCart(
 					state.cartItems,
 					action.payload
-				)
+				),
 			}
 
 		case CartActionTypes.REMOVE_ITEM:
@@ -34,23 +34,29 @@ const cartReducer = (
 				cartItems: removeItemFromCart(
 					state.cartItems,
 					action.payload
-				)
+				),
 			}
 
 		case CartActionTypes.CLEAR_ITEM_FROM_CART:
 			return {
 				...state,
 				cartItems: state.cartItems.filter(
-					cartItem =>
+					(cartItem) =>
 						cartItem.id !==
 						action.payload.id
-				)
+				),
 			}
 
 		case CartActionTypes.CLEAR_CART:
 			return {
 				...state,
-				cartItems: []
+				cartItems: [],
+			}
+
+		case CartActionTypes.SET_CART_FROM_FIREBASE:
+			return {
+				...state,
+				cartItems: action.payload,
 			}
 
 		default:
